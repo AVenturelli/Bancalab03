@@ -27,7 +27,7 @@ public class conta extends AppCompatActivity {
     int i = 0;
     private LocationManager posizionemanager;
     private LocationListener posizioneascoltatore;
-    private Switch vai;
+    private Switch gps,net;
     Double Altitudine,Longitudine,Latitudine;
 
     @Override
@@ -39,7 +39,9 @@ public class conta extends AppCompatActivity {
         sfondo = findViewById(R.id.sfondo);
         foto = findViewById(R.id.foto);
         foto.setImageResource(R.drawable.fotodiprova1);
-        vai = findViewById(R.id.switch1);
+        gps = findViewById(R.id.switch1);
+        net = findViewById(R.id.switch2);
+
         getSupportActionBar().hide();
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
@@ -100,15 +102,30 @@ public class conta extends AppCompatActivity {
     }
 
     private void configureSwitch() {
-        vai.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        gps.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             @SuppressLint("MissingPermission")
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
+                    //posizionemanager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 10, posizioneascoltatore);
                     posizionemanager.requestLocationUpdates("gps", 0, 0, posizioneascoltatore);
-                    posizionemanager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, posizioneascoltatore);
-                    posizionemanager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0, posizioneascoltatore);
+                }
+                else
+                {
+                    posizionemanager.removeUpdates(posizioneascoltatore);
+                    testo.setText("Longitudine: "+Longitudine+"\nLatitudine: "+Latitudine+"\nAltitudine: "+Altitudine);
+                    testo.setTextColor(Color.RED);
+                }
+            }
+        });
+        net.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @SuppressLint("MissingPermission")
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked) {
+                    posizionemanager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1000, 10, posizioneascoltatore);
                 }
                 else
                 {
