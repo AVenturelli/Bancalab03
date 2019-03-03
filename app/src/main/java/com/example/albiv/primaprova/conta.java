@@ -12,10 +12,8 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -42,7 +40,6 @@ public class conta extends AppCompatActivity {
         foto = findViewById(R.id.foto);
         foto.setImageResource(R.drawable.fotodiprova1);
         vai = findViewById(R.id.switch1);
-        /// Nascondo il Titolo
         getSupportActionBar().hide();
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
@@ -50,10 +47,6 @@ public class conta extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(Color.WHITE);
         }
-
-
-
-
 
         ////POSIZIONE////
         posizionemanager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
@@ -113,7 +106,9 @@ public class conta extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked) {
-                    posizionemanager.requestLocationUpdates("gps", 1, 0, posizioneascoltatore);
+                    posizionemanager.requestLocationUpdates("gps", 0, 0, posizioneascoltatore);
+                    posizionemanager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, posizioneascoltatore);
+                    posizionemanager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, 0, 0, posizioneascoltatore);
                 }
                 else
                 {
@@ -124,7 +119,7 @@ public class conta extends AppCompatActivity {
             }
         });
     }
-
+ /////// FINE POSIZIONE //////
     public void changetext(View v) {
         //bottone1.setText("Questo bottone è stato premuto " + i + " volte");
         if ((i % 2) == 0) {
