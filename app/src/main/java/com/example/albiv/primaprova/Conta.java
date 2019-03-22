@@ -19,7 +19,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.*;
 
-public class main extends AppCompatActivity {
+public class Conta extends AppCompatActivity {
 
     private ConstraintLayout sfondo;
     private ImageView foto;
