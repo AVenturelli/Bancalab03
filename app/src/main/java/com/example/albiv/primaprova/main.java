@@ -19,7 +19,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.*;
 
-public class conta extends AppCompatActivity {
+public class main extends AppCompatActivity {
 
     private ConstraintLayout sfondo;
     private ImageView foto;
@@ -41,8 +41,10 @@ public class conta extends AppCompatActivity {
         foto.setImageResource(R.drawable.fotodiprova1);
         gps = findViewById(R.id.switch1);
         net = findViewById(R.id.switch2);
-
+        //Cancella la barra superiore
         getSupportActionBar().hide();
+
+        //Barra notifiche bianca e testo nero
         if (android.os.Build.VERSION.SDK_INT >= 21) {
             Window window = this.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
@@ -137,20 +139,4 @@ public class conta extends AppCompatActivity {
         });
     }
  /////// FINE POSIZIONE //////
-    public void changetext(View v) {
-        //bottone1.setText("Questo bottone è stato premuto " + i + " volte");
-        if ((i % 2) == 0) {
-            //bottone1.setTextColor(Color.RED);
-            //bottone1.setGravity(Gravity.LEFT);
-            sfondo.setBackgroundColor(Color.rgb( 134, 243, 2));
-            foto.setImageResource(R.drawable.fotodiprova1);
-        } else {
-            //bottone1.setTextColor(Color.GREEN);
-            sfondo.setBackgroundColor(Color.rgb( 34, 43, 21));
-            foto.setImageResource(R.drawable.fotodiprova2);
-        }
-        i++;
-
-    }
-
 }
