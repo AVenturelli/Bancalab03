@@ -2,12 +2,15 @@ package com.example.albiv.primaprova;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.net.Uri;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -28,6 +31,8 @@ public class Conta extends AppCompatActivity {
     private LocationManager posizionemanager;
     private LocationListener posizioneascoltatore;
     private Switch gps,net;
+    private Button link_maps;
+    private String coordinate;
     Double Altitudine,Longitudine,Latitudine;
 
     @Override
@@ -41,8 +46,10 @@ public class Conta extends AppCompatActivity {
         foto.setImageResource(R.drawable.fotodiprova1);
         gps = findViewById(R.id.switch1);
         net = findViewById(R.id.switch2);
+        coordinate = "https://www.google.it/maps/search/40.8630+14.2767+@40.8630,14.2767,17z";
         //Cancella la barra superiore
         getSupportActionBar().hide();
+        Button mappa = findViewById(R.id.web);
 
         //Barra notifiche bianca e testo nero
         if (android.os.Build.VERSION.SDK_INT >= 21) {
@@ -51,7 +58,13 @@ public class Conta extends AppCompatActivity {
             window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             window.setStatusBarColor(Color.WHITE);
         }
-
+        ////LINK BOTTONE /////
+        mappa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openWebPage(coordinate);
+            }
+        });
         ////POSIZIONE////
         posizionemanager = (LocationManager) this.getSystemService(LOCATION_SERVICE);
         posizioneascoltatore = new LocationListener() {
@@ -62,6 +75,7 @@ public class Conta extends AppCompatActivity {
                 Altitudine = location.getAltitude();
                 Longitudine = location.getLongitude();
                 Latitudine = location.getLatitude();
+                coordinate = "https://www.google.it/maps/search/"+Latitudine+"+"+Longitudine+"+/@"+Latitudine+","+Longitudine+",17z";
             }
 
             @Override
@@ -86,9 +100,10 @@ public class Conta extends AppCompatActivity {
         }else{
             configureSwitch();
         }
-
+        ///// FINE POSIZIONE /////
 
     }
+    ///// CHIAMATA PERMESSI ///
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode)
@@ -102,7 +117,7 @@ public class Conta extends AppCompatActivity {
         }
 
     }
-
+    /////// COSA FARE ALLA CAMBIAMENTO DEGLI SWITCH ///////
     private void configureSwitch() {
         gps.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
@@ -138,5 +153,12 @@ public class Conta extends AppCompatActivity {
             }
         });
     }
- /////// FINE POSIZIONE //////
+    //// APERTURA PAGINA WEB ////
+    public void openWebPage(String coordinate) {
+        Uri webpage = Uri.parse(coordinate);
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
+    }
 }
