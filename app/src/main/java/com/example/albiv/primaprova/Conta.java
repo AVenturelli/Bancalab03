@@ -11,6 +11,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
@@ -25,7 +26,6 @@ import android.widget.*;
 public class Conta extends AppCompatActivity {
 
     private ConstraintLayout sfondo;
-    private ImageView foto;
     private TextView testo;
     int i = 0;
     private LocationManager posizionemanager;
@@ -42,22 +42,32 @@ public class Conta extends AppCompatActivity {
 
         testo = findViewById(R.id.testo1);
         sfondo = findViewById(R.id.sfondo);
-        foto = findViewById(R.id.foto);
-        foto.setImageResource(R.drawable.fotodiprova1);
+        sfondo.setBackgroundResource(R.drawable.sfondo);
+        //foto = findViewById(R.id.foto);
+        //foto.setImageResource(R.drawable.fotodiprova1);
         gps = findViewById(R.id.switch1);
         net = findViewById(R.id.switch2);
         coordinate = "https://www.google.it/maps/search/40.8630+14.2767+@40.8630,14.2767,17z";
+        Button mappa = findViewById(R.id.web);
         //Cancella la barra superiore
         getSupportActionBar().hide();
-        Button mappa = findViewById(R.id.web);
-
-        //Barra notifiche bianca e testo nero
-        if (android.os.Build.VERSION.SDK_INT >= 21) {
-            Window window = this.getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            window.setStatusBarColor(Color.WHITE);
-        }
+        final View decorView = getWindow().getDecorView();
+        decorView.setOnSystemUiVisibilityChangeListener
+                (new View.OnSystemUiVisibilityChangeListener() {
+                    @Override
+                    public void onSystemUiVisibilityChange(int visibility) {
+                        if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
+                            try {
+                                Thread.sleep(1000);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
+                        }
+                    }
+                });
+        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
+        decorView.setSystemUiVisibility(uiOptions);
         ////LINK BOTTONE /////
         mappa.setOnClickListener(new View.OnClickListener() {
             @Override
