@@ -25,13 +25,13 @@ import android.widget.*;
 
 public class Conta extends AppCompatActivity {
 
-    private ConstraintLayout sfondo;
-    private TextView testo;
-    int i = 0;
+    protected ConstraintLayout sfondo;
+    protected TextView testo;
+    protected int i = 0;
     private LocationManager posizionemanager;
     private LocationListener posizioneascoltatore;
     private Switch gps,net;
-    private Button link_maps;
+    private Button mappa;
     private String coordinate;
     Double Altitudine,Longitudine,Latitudine;
 
@@ -43,31 +43,17 @@ public class Conta extends AppCompatActivity {
         testo = findViewById(R.id.testo1);
         sfondo = findViewById(R.id.sfondo);
         sfondo.setBackgroundResource(R.drawable.sfondo);
-        //foto = findViewById(R.id.foto);
-        //foto.setImageResource(R.drawable.fotodiprova1);
         gps = findViewById(R.id.switch1);
         net = findViewById(R.id.switch2);
         coordinate = "https://www.google.it/maps/search/40.8630+14.2767+@40.8630,14.2767,17z";
-        Button mappa = findViewById(R.id.web);
-        //Cancella la barra superiore
-        getSupportActionBar().hide();
-        final View decorView = getWindow().getDecorView();
-        decorView.setOnSystemUiVisibilityChangeListener
-                (new View.OnSystemUiVisibilityChangeListener() {
-                    @Override
-                    public void onSystemUiVisibilityChange(int visibility) {
-                        if ((visibility & View.SYSTEM_UI_FLAG_FULLSCREEN) == 0) {
-                            try {
-                                Thread.sleep(1000);
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
-                            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN);
-                        }
-                    }
-                });
-        int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
-        decorView.setSystemUiVisibility(uiOptions);
+        mappa = findViewById(R.id.web);
+
+        //Cancella la barra superiore e la torna a nascondere quando ho tirato giù la tendina di notifica
+        // Chissà se funzia
+        Layout struttura = new Layout();
+        struttura.notifiche();
+        struttura.actionbar();
+
         ////LINK BOTTONE /////
         mappa.setOnClickListener(new View.OnClickListener() {
             @Override
