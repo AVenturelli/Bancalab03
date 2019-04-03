@@ -52,7 +52,7 @@ public class Conta extends AppCompatActivity {
         // Chissà se funzia
         Layout struttura = new Layout();
         struttura.notifiche();
-        struttura.actionbar();
+        struttura.actionbarHide();
 
         ////LINK BOTTONE /////
         mappa.setOnClickListener(new View.OnClickListener() {

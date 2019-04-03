@@ -22,7 +22,7 @@ public class Layout extends Conta {
         int uiOptions = View.SYSTEM_UI_FLAG_FULLSCREEN;
         decorView.setSystemUiVisibility(uiOptions);
     }
-    public void actionbar()
+    public void actionbarHide()
     {
         getSupportActionBar().hide();
     }
