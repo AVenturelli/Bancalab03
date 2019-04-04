@@ -40,7 +40,7 @@ public class Conta extends AppCompatActivity {
         sfondo.setBackgroundResource(R.drawable.sfondo);
         gps = findViewById(R.id.switch1);
         net = findViewById(R.id.switch2);
-        coordinate = "https://www.google.it/maps/search/40.8630+14.2767+@40.8630,14.2767,17z";
+        coordinate = "https://www.google.it/maps/search/40.8630+14.2767+@40.8630,14.27671,17z";
         mappa = findViewById(R.id.web);
 
         //Cancella la barra superiore e la torna a nascondere quando ho tirato giù la tendina di notifica
